@@ -1,0 +1,30 @@
+vector_store:
+  provider: chroma
+  persist_directory: chroma  # Será convertido para caminho absoluto
+  collection_name: default
+  distance_metric: cosine
+
+embeddings:
+  provider: ollama
+  model_name: nomic-embed-text
+  cache_size: 1000
+  batch_size: 32
+
+llm:
+  provider: ollama
+  model_name: mistral
+  temperature: 0.7
+  max_tokens: 2000
+  timeout: 180
+  max_retries: 3
+  retry_delay: 1.0
+
+cache:
+  type: lru
+  capacity: 1000
+  default_ttl: 3600
+
+logging:
+  level: INFO
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: logs/app.log

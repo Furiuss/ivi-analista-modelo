@@ -1,0 +1,65 @@
+# Ambiente virtual
+.venv/
+venv/
+ENV/
+
+# Arquivos de cache Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Arquivos de distribuição / packaging
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+bin/
+var/
+sdist/
+develop-eggs/
+.installed.cfg
+lib/
+lib64/
+Ivi.Analista.Modelo.egg-info/
+
+# Diretório do Chroma DB
+chroma/
+
+# Arquivos de configuração local
+*.env
+.env
+
+# Logs
+*.log
+logs/
+
+# IDEs e editores
+.idea/
+.vscode/
+*.swp
+*.swo
+.project
+.pydevproject
+.settings/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos temporários
+*.tmp
+*.bak
+*.swp
+*~
+
+# Arquivos de teste e cobertura
+.coverage
+htmlcov/
+.tox/
+.nox/
+.pytest_cache/
+coverage.xml
+*.cover
+.hypothesis/
