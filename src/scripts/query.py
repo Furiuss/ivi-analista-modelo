@@ -21,6 +21,7 @@ Regras OBRIGATÓRIAS:
 3. NÃO FAÇA SUPOSIÇÕES ou adicione informações externas
 4. Se o contexto não for relacionado à pergunta, responda "O contexto fornecido não contém informações relacionadas a esta pergunta"
 5. Mantenha a resposta focada apenas no que está documentado
+6. NÃO RESPONDA do que o contexto fornecido se trata, apenas que a pergunta não está nele
 
 Pergunta: {question}
 """
@@ -81,7 +82,7 @@ async def query(
             model_name=config.llm.model_name,
             temperature=config.llm.temperature,
             max_tokens=config.llm.max_tokens,
-            timeout=180,  # 3 minutos
+            timeout=180,
             max_retries=3
         )
 
@@ -105,8 +106,8 @@ async def query(
         for doc, score in results:
             try:
                 score_float = float(score)
-                if score_float >= float(similarity_threshold):
-                    filtered_results.append((doc, score_float))
+                # if score_float >= float(similarity_threshold):
+                filtered_results.append((doc, score_float))
             except (ValueError, TypeError) as e:
                 logger.warning(f"Error converting score to float: {str(e)}")
                 continue
@@ -152,6 +153,7 @@ async def query(
             4. NÃO FAÇA suposições
             5. Seja direto e técnico em suas respostas
             6. Se a pergunta não estiver relacionada ao contexto, deixe isso claro
+            7. NÃO RESPONDA do que o contexto fornecido se trata, apenas que a pergunta não está nele
             """
         # # Sistema prompt baseado no idioma
         # system_prompt = (
