@@ -39,6 +39,7 @@ Reglas OBLIGATORIAS:
 3. NO HAGAS SUPOSICIONES ni agregues información externa
 4. Si el contexto no está relacionado con la pregunta, responde "El contexto proporcionado no contiene información relacionada con esta pregunta"
 5. Mantén la respuesta enfocada solo en lo que está documentado
+6. NO RESPONDA sobre lo que trata el contexto proporcionado, solo que la pregunta no está en él.
 
 Pregunta: {question}
 """
