@@ -12,7 +12,7 @@ embeddings:
 
 llm:
   provider: ollama
-  model_name: mistral
+  model_name: neural-chat
   temperature: 0.7
   max_tokens: 2000
   timeout: 180

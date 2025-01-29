@@ -1,48 +1,65 @@
-from dataclasses import dataclass
-from typing import List, Optional
+"""
+Sistema de Consulta RAG Interativo com cache e detecção de idioma
+"""
+
+import sys
+import json
 import asyncio
 import argparse
+from dataclasses import dataclass
+from typing import List, Optional, Dict
+
 import langdetect
+from langdetect import LangDetectException
+
 from src.core.config import AppConfig
 from src.embeddings.ollama import OllamaEmbeddingProvider
-from src.utils.prompt_templates import PromptTemplates
 from src.vectorstores.chroma_store import ChromaVectorStore
 from src.llm.ollama_llm import OllamaLLMProvider
 from src.cache.lru_cache import LRUCache
 from src.utils.logging import setup_logger
+from src.utils.prompt_templates import PromptTemplates, RoleEnum
 
 
-@dataclass
+@dataclass(frozen=True)
 class SearchResult:
-    """Classe para armazenar resultados da busca"""
+    """Resultado de uma busca no repositório de documentos"""
     context_texts: List[str]
     sources: List[str]
 
     def get_formatted_context(self) -> str:
+        """Formata o contexto para inclusão no prompt"""
         return "\n\n---\n\n".join(self.context_texts)
 
     def get_formatted_sources(self, language: str) -> str:
-
-        header = 'Fontes consultadas' if language == 'pt' else 'Fuentes consultadas'
-        return (f"{header}:\n{'-' * 40}\n"
-                f"{chr(10).join('- ' + src for src in self.sources)}")
+        """Formata as fontes para exibição ao usuário"""
+        headers = {
+            'pt': 'Fontes consultadas',
+            'es': 'Fuentes consultadas'
+        }
+        sources_list = chr(10).join(f'- {src}' for src in self.sources)
+        return (
+            f"{headers.get(language, 'Fontes')}:\n"
+            f"{'-' * 40}\n"
+            f"{sources_list}"
+        )
 
 
 class QueryProcessor:
-    """Classe principal para processamento de queries no sistema RAG"""
+    """Processador de consultas utilizando arquitetura RAG"""
 
     def __init__(self, config_path: str):
         self.config = AppConfig.load_from_yaml(config_path)
-        self.logger = setup_logger("query", level=self.config.logging.level)
+        self.logger = setup_logger("query_processor", level=self.config.logging.level)
         self.cache = LRUCache(capacity=self.config.cache.capacity)
 
-        # Inicialização lazy dos providers
-        self._embedding_provider = None
-        self._vector_store = None
-        self._llm_provider = None
+        self._embedding_provider: Optional[OllamaEmbeddingProvider] = None
+        self._vector_store: Optional[ChromaVectorStore] = None
+        self._llm_provider: Optional[OllamaLLMProvider] = None
 
     @property
-    def embedding_provider(self):
+    def embedding_provider(self) -> OllamaEmbeddingProvider:
+        """Provider de embeddings (inicialização lazy)"""
         if self._embedding_provider is None:
             self._embedding_provider = OllamaEmbeddingProvider(
                 model=self.config.embeddings.model_name
@@ -50,7 +67,8 @@ class QueryProcessor:
         return self._embedding_provider
 
     @property
-    def vector_store(self):
+    def vector_store(self) -> ChromaVectorStore:
+        """Vector store (inicialização lazy)"""
         if self._vector_store is None:
             self._vector_store = ChromaVectorStore(
                 persist_directory=self.config.vector_store.persist_directory,
@@ -60,7 +78,8 @@ class QueryProcessor:
         return self._vector_store
 
     @property
-    def llm_provider(self):
+    def llm_provider(self) -> OllamaLLMProvider:
+        """Provider do modelo LLM (inicialização lazy)"""
         if self._llm_provider is None:
             self._llm_provider = OllamaLLMProvider(
                 model_name=self.config.llm.model_name,
@@ -72,79 +91,88 @@ class QueryProcessor:
         return self._llm_provider
 
     async def detect_language(self, query_text: str, forced_language: Optional[str] = None) -> str:
-        """Detecta ou valida o idioma da query"""
+        """Detecta o idioma da consulta usando lib externa"""
         if forced_language:
             return forced_language
 
         try:
             detected = langdetect.detect(query_text)
             return 'pt' if detected not in ['pt', 'es'] else detected
-        except:
+        except LangDetectException as e:
+            self.logger.warning(f"Erro na detecção de idioma: {e}. Usando 'pt' como fallback")
             return 'pt'
 
-    async def check_cache(self, query_text: str) -> Optional[str]:
-        """Verifica se a resposta está em cache"""
-        cached_response = await self.cache.get(query_text)
-        if cached_response:
-            self.logger.info("Cache hit")
-            return cached_response
+    async def _get_cached_response(self, query_text: str) -> Optional[str]:
+        """Verifica o cache por uma resposta existente"""
+        cached = await self.cache.get(query_text)
+        if cached:
+            self.logger.debug(f"Cache hit para query: {query_text[:50]}...")
+            return cached
         return None
 
-    async def search_documents(
-            self,
-            query_text: str,
-            similarity_threshold: float
-    ) -> Optional[SearchResult]:
-        """Busca documentos relevantes no vector store"""
+    async def _search_relevant_documents(self, query_text: str, threshold: float) -> Optional[SearchResult]:
+        """Executa a busca por documentos relevantes"""
         results = await self.vector_store.similarity_search(query_text, k=5)
 
-        filtered_results = [
-            (doc, score) for doc, score in results
-            if score >= float(similarity_threshold)
+        filtered = [
+            (doc, score)
+            for doc, score in results
+            if score >= threshold
         ]
 
-        if not filtered_results:
+        if not filtered:
             return None
 
         context_texts = []
         sources = []
+        seen_sources = set()
 
-        for doc, score in filtered_results:
+        for doc, score in filtered:
             context_texts.append(doc.content)
-            title = doc.metadata.get('title', 'Título Desconhecido')
-            doc_id = doc.metadata.get('doc_id', 'ID Desconhecido')
-            source = f"{title} (ID: {doc_id}, Score: {score:.3f})"
-            if source not in sources:
-                sources.append(source)
-
-        self.logger.info(f"Found {len(results)} relevant documents")
-        return SearchResult(context_texts=context_texts, sources=sources)
-
-    async def generate_response(
-            self,
-            prompt: str,
-            system_prompt: str
-    ) -> Optional[str]:
-        """Gera resposta usando o LLM"""
-        try:
-            return await self.llm_provider.generate(
-                f"{system_prompt}\n\n{prompt}"
+            source_info = (
+                f"{doc.metadata.get('title', 'Sem título')} "
+                f"(ID: {doc.metadata.get('doc_id', 'N/A')}, "
+                f"Score: {score:.3f})"
             )
+            if source_info not in seen_sources:
+                seen_sources.add(source_info)
+                sources.append(source_info)
+
+        self.logger.info(f"Documentos encontrados: {len(filtered)}/{len(results)}")
+        return SearchResult(context_texts, sources)
+
+    def _build_prompts(self, context: str, query: str) -> Dict[str, str]:
+        """Constrói os prompts para o LLM"""
+        user_context = {
+            "phone": "62985761305",
+            "name": "Messias",
+            "client_id": 22
+        }
+
+        return {
+            "system": PromptTemplates.get_prompt(RoleEnum.System),
+            "user": PromptTemplates.get_prompt(RoleEnum.User).format(
+                context=context,
+                question=query,
+                **user_context
+            )
+        }
+
+    async def _generate_llm_response(self, prompts: Dict[str, str]) -> Optional[str]:
+        """Gera a resposta através do LLM"""
+        try:
+            full_prompt = f"{prompts['system']}\n\n{prompts['user']}"
+            return await self.llm_provider.generate(full_prompt)
         except Exception as e:
-            self.logger.error(f"Error generating response: {str(e)}")
+            self.logger.error(f"Falha na geração da resposta: {str(e)}")
             return None
 
-    def format_response(
-            self,
-            response: str,
-            search_result: SearchResult,
-            language: str
-    ) -> str:
-        """Formata a resposta final com as fontes"""
+    def _format_final_response(self, response: str, sources: SearchResult, language: str) -> str:
+        """Formata a resposta final para exibição"""
+        response_header = "Resposta" if language == 'pt' else "Respuesta"
         return (
-            f"{'Resposta' if language == 'pt' else 'Respuesta'}:\n"
-            f"{response}\n\n"
-            f"{search_result.get_formatted_sources(language)}"
+            f"{response_header}:\n{response}\n\n"
+            f"{sources.get_formatted_sources(language)}"
         )
 
     async def process_query(
@@ -153,95 +181,121 @@ class QueryProcessor:
             language: Optional[str] = None,
             similarity_threshold: float = 0.004
     ) -> str:
-        """Metodo principal para processar uma query"""
+        """Fluxo principal de processamento de consultas"""
+        self.logger.info(f"Processando consulta: {query_text[:50]}...")
+
         try:
-            # Verificar cache
-            cached_response = await self.check_cache(query_text)
-            if cached_response:
-                return cached_response
+            # Verificação de cache
+            if cached := await self._get_cached_response(query_text):
+                return cached
 
-            # Detectar idioma
+            # Detecção de idioma
             language = await self.detect_language(query_text, language)
-            self.logger.info(f"Query language detected: {language}")
+            self.logger.debug(f"Idioma detectado: {language}")
 
-            # Buscar documentos
-            search_result = await self.search_documents(query_text, similarity_threshold)
+            # Busca de documentos
+            search_result = await self._search_relevant_documents(query_text, similarity_threshold)
             if not search_result:
+                self.logger.warning("Nenhum documento relevante encontrado")
                 return (
-                    "Não encontrei documentos suficientemente relevantes para sua pergunta. "
-                    "Por favor, reformule a pergunta ou busque por outro tópico."
+                    "Não encontrei documentos relevantes para sua pergunta. "
+                    "Por favor, reformule a consulta."
                 )
 
-            # Preparar prompts
-            template = PromptTemplates.get_template(language)
-            prompt = template.format(
-                context=search_result.get_formatted_context(),
-                question=query_text
+            # Construção e execução dos prompts
+            prompts = self._build_prompts(
+                search_result.get_formatted_context(),
+                query_text
             )
-            system_prompt = PromptTemplates.get_system_prompt()
 
-            # Gerar resposta
-            response = await self.generate_response(prompt, system_prompt)
-            if not response:
-                return "Desculpe, ocorreu um erro ao gerar a resposta. Por favor, tente novamente."
+            llm_response = await self._generate_llm_response(prompts)
+            if not llm_response:
+                return "Erro ao gerar resposta. Tente novamente mais tarde."
 
-            # Formatar resposta final
-            formatted_response = self.format_response(response, search_result, language)
-
-            # Salvar no cache
+            # Formatação e cache
+            formatted = self._format_final_response(llm_response, search_result, language)
             await self.cache.set(
-                query_text,
-                formatted_response,
+                key=query_text,
+                value=formatted,
                 ttl=self.config.cache.default_ttl
             )
 
-            return formatted_response
+            return formatted
 
         except Exception as e:
-            self.logger.error(f"Error processing query: {str(e)}")
-            return f"Ocorreu um erro ao processar sua pergunta: {str(e)}"
+            self.logger.exception(f"Erro crítico ao processar consulta: {str(e)}")
+            return f"Erro interno: {str(e)}"
+
+
+def run_interactive_session(processor: QueryProcessor, args: argparse.Namespace):
+    """Executa sessão interativa de consultas via CLI"""
+    print("\n🤖 Sistema de Consulta RAG Interativo")
+    print("Digite 'sair' ou pressione Ctrl+C para encerrar\n")
+
+    try:
+        while True:
+            try:
+                query = input("👉 Sua pergunta: ").strip()
+
+                if query.lower() in ('sair', 'exit', 'quit'):
+                    print("\n👋 Até logo!")
+                    break
+
+                if not query:
+                    continue
+
+                response = asyncio.run(
+                    processor.process_query(
+                        query_text=query,
+                        language=args.language,
+                        similarity_threshold=args.similarity_threshold
+                    )
+                )
+
+                print(f"\n{response}\n")
+
+            except KeyboardInterrupt:
+                print("\n\n👋 Encerrando sessão...")
+                break
+
+    except Exception as e:
+        print(f"⚠️ Erro inesperado: {str(e)}")
+        sys.exit(1)
 
 
 def main():
-    """Função principal para execução via linha de comando"""
-    parser = argparse.ArgumentParser(description="Query RAG system")
-    parser.add_argument(
-        "query_text",
-        help="The question to ask"
+    """Ponto de entrada principal da aplicação"""
+    parser = argparse.ArgumentParser(
+        description="Sistema de Consulta RAG Interativo"
     )
     parser.add_argument(
         "--config",
         default="config.yaml",
-        help="Path to config file"
+        help="Caminho para o arquivo de configuração"
     )
     parser.add_argument(
         "--language",
         choices=['pt', 'es'],
-        help="Force specific language"
+        help="Forçar idioma específico (pt/es)"
     )
     parser.add_argument(
         "--similarity_threshold",
         type=float,
         default=0.004,
-        help="Force specific threshold"
+        help="Limiar de similaridade para documentos"
     )
 
     args = parser.parse_args()
 
     try:
         processor = QueryProcessor(args.config)
-        response = asyncio.run(
-            processor.process_query(
-                args.query_text,
-                args.language,
-                args.similarity_threshold
-            )
-        )
-        print(response)
-    except KeyboardInterrupt:
-        print("\nOperação cancelada pelo usuário.")
+        run_interactive_session(processor, args)
+    except FileNotFoundError:
+        print(f"❌ Arquivo de configuração não encontrado: {args.config}")
+        sys.exit(1)
     except Exception as e:
-        print(f"Erro inesperado: {str(e)}")
+        print(f"❌ Falha na inicialização: {str(e)}")
+        sys.exit(1)
 
 
 if __name__ == "__main__":

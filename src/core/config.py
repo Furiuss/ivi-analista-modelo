@@ -22,7 +22,7 @@ class EmbeddingSettings(BaseModel):
 
 class LLMSettings(BaseModel):
     provider: str = "ollama"
-    model_name: str = "mistral"
+    model_name: str = "neural-chat"
     temperature: float = 0.7
     max_tokens: Optional[int] = None
     timeout: int = 30

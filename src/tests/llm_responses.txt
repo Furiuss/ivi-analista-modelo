@@ -1,0 +1,462 @@
+
+================================================================================
+Model: mistral
+================================================================================
+
+
+Language: pt
+--------------------------------------------------------------------------------
+
+Query: Como automatizar o preenchimento dos códigos?
+Ground Truth: Para automatizar é necessário informar as opções 01, 02 ou 03 no campo U_TX_IndNat.
+Response: Resposta:
+ Para automatizar o preenchimento dos códigos 14, 15, 16, é necessário atender aos seguintes requisitos:
+
+1- No campo [U_TX_IndNat] do cadastro de parceiro de negócio informe as opções: 01, 02 ou 03. Essa é a condição que determina o preenchimento automático desses códigos.
+
+2- No documento de saída calcule IRRF e CSLL, utilize os tipos nativos do SAP do contrário os valores calculados nestes impostos não serão considerados na análise fiscal. Estes valores serão transportados para os registros N620-IRPJ, códigos 14, 15, 16 de acordo com a opção selecionada no cadastro de parceiro de negócio.
+
+O detalhamento dos valores nestes códigos serão transportados para o registro Y570.
+
+Fontes consultadas:
+----------------------------------------
+- TaxPlus | SPED ECF | Registro N660 | Automaticamente | Códigos 14, 15, 16 (ID: 484944, Score: 0.004)
+----------------------------------------
+
+Query: Qual o procedimento para calcular IRRF?
+Ground Truth: No documento de saída calcule IRRF e CSLL usando tipos nativos do SAP.
+Response: Não encontrei documentos suficientemente relevantes para sua pergunta. Por favor, reformule a pergunta ou busque por outro tópico.
+----------------------------------------
+
+Query: Como configurar o campo U_TX_IndNat?
+Ground Truth: No campo U_TX_IndNat do cadastro de parceiro de negócio informe as opções: 01, 02 ou 03.
+Response: Não encontrei documentos suficientemente relevantes para sua pergunta. Por favor, reformule a pergunta ou busque por outro tópico.
+----------------------------------------
+
+Query: Quais são os requisitos para carregamento automático?
+Ground Truth: É necessário atender dois requisitos: configurar U_TX_IndNat e usar tipos nativos do SAP para IRRF e CSLL.
+Response: Resposta:
+1- Informar as opções 01, 02 ou 03 no campo [U_TX_IndNat] do cadastro de parceiro de negócio.
+2- Calcular IRRF e CSLL usando os tipos nativos do SAP nos documentos de saída.
+
+Fontes consultadas:
+----------------------------------------
+- TaxPlus | SPED ECF | Registro N660 | Automaticamente | Códigos 14, 15, 16 (ID: 484944, Score: 0.004)
+----------------------------------------
+
+Query: Como os valores são transportados para o registro N620-IRPJ?
+Ground Truth: Os valores são transportados para os registros N620-IRPJ, códigos 14, 15, 16 de acordo com a opção no cadastro.
+Response: Resposta:
+ Os valores são transportados para o registro N620-IRPJ de acordo com a opção selecionada no cadastro de parceiro de negócio. Selecione as opções 01, 02 ou 03 no campo [U_TX_IndNat] do cadastro de parceiro de negócio para que o sistema consiga carregar as informações de forma automática. Estes valores serão transportados para os registros N620-IRPJ, códigos 14, 15, 16 de acordo com a opção selecionada no cadastro de parceiro de negócio. O detalhamento dos valores nestes códigos serão transportados para o registro Y570.
+
+No documento de saída calcule IRRF e CSLL, utilize os tipos nativos do SAP do contrário os valores calculados nestes impostos não serão considerados na análise fiscal.
+
+Fontes consultadas:
+----------------------------------------
+- TaxPlus | SPED ECF | Registro N660 | Automaticamente | Códigos 14, 15, 16 (ID: 484944, Score: 0.005)
+----------------------------------------
+
+
+Language: es
+--------------------------------------------------------------------------------
+
+Query: ¿Cómo automatizar el llenado de los códigos?
+Ground Truth: Para automatizar es necesario informar las opciones 01, 02 o 03 en el campo U_TX_IndNat.
+Response: Não encontrei documentos suficientemente relevantes para sua pergunta. Por favor, reformule a pergunta ou busque por outro tópico.
+----------------------------------------
+
+Query: ¿Cuál es el procedimiento para calcular IRRF?
+Ground Truth: En el documento de salida calcule IRRF y CSLL usando tipos nativos de SAP.
+Response: Não encontrei documentos suficientemente relevantes para sua pergunta. Por favor, reformule a pergunta ou busque por outro tópico.
+----------------------------------------
+
+Query: ¿Cómo configurar el campo U_TX_IndNat?
+Ground Truth: En el campo U_TX_IndNat del registro de socio comercial, informe las opciones: 01, 02 o 03.
+Response: Não encontrei documentos suficientemente relevantes para sua pergunta. Por favor, reformule a pergunta ou busque por outro tópico.
+----------------------------------------
+
+Query: ¿Cuáles son los requisitos para la carga automática?
+Ground Truth: Es necesario cumplir dos requisitos: configurar U_TX_IndNat y usar tipos nativos de SAP para IRRF y CSLL.
+Response: Não encontrei documentos suficientemente relevantes para sua pergunta. Por favor, reformule a pergunta ou busque por outro tópico.
+----------------------------------------
+
+Query: ¿Cómo se transportan los valores al registro N620-IRPJ?
+Ground Truth: Los valores se transportan a los registros N620-IRPJ, códigos 14, 15, 16 según la opción en el registro.
+Response: Respuesta:
+ Os valores são transportados para o registro N620-IRPJ de acordo com a opção selecionada no cadastro de parceiro de negócio.
+
+Fuentes consultadas:
+----------------------------------------
+- TaxPlus | SPED ECF | Registro N660 | Automaticamente | Códigos 14, 15, 16 (ID: 484944, Score: 0.004)
+----------------------------------------
+
+
+================================================================================
+Model: neural-chat
+================================================================================
+
+
+Language: pt
+--------------------------------------------------------------------------------
+
+Query: Como automatizar o preenchimento dos códigos?
+Ground Truth: Para automatizar é necessário informar as opções 01, 02 ou 03 no campo U_TX_IndNat.
+Response: Resposta:
+ Para automatizar o preenchimento dos códigos 14, 15 e 16, é necessário atender os seguintes requisitos:
+
+1. No campo [U_TX_IndNat] do cadastro de parceiro de negócio informe as opções: 01, 02 ou 03.
+2. No documento de saída calcule IRRF e CSLL, utilize os tipos nativos do SAP do contrário os valores calculados nestes impostos não serão considerados na análise fiscal.
+
+Fontes consultadas:
+----------------------------------------
+- TaxPlus | SPED ECF | Registro N660 | Automaticamente | Códigos 14, 15, 16 (ID: 484944, Score: 0.004)
+----------------------------------------
+
+Query: Qual o procedimento para calcular IRRF?
+Ground Truth: No documento de saída calcule IRRF e CSLL usando tipos nativos do SAP.
+Response: Não encontrei documentos suficientemente relevantes para sua pergunta. Por favor, reformule a pergunta ou busque por outro tópico.
+----------------------------------------
+
+Query: Como configurar o campo U_TX_IndNat?
+Ground Truth: No campo U_TX_IndNat do cadastro de parceiro de negócio informe as opções: 01, 02 ou 03.
+Response: Não encontrei documentos suficientemente relevantes para sua pergunta. Por favor, reformule a pergunta ou busque por outro tópico.
+----------------------------------------
+
+Query: Quais são os requisitos para carregamento automático?
+Ground Truth: É necessário atender dois requisitos: configurar U_TX_IndNat e usar tipos nativos do SAP para IRRF e CSLL.
+Response: Resposta:
+1- No campo [U_TX_IndNat] do cadastro de parceiro de negócio informe as opções: 01, 02 ou 03.
+2- No documento de saída calcule IRRF e CSLL, utilize os tipos nativos do SAP do contrário os valores calculados nestes impostos não serão considerados na análise fiscal.
+
+Fontes consultadas:
+----------------------------------------
+- TaxPlus | SPED ECF | Registro N660 | Automaticamente | Códigos 14, 15, 16 (ID: 484944, Score: 0.004)
+----------------------------------------
+
+Query: Como os valores são transportados para o registro N620-IRPJ?
+Ground Truth: Os valores são transportados para os registros N620-IRPJ, códigos 14, 15, 16 de acordo com a opção no cadastro.
+Response: Resposta:
+ Os valores são transportados para o registro N620-IRPJ de acordo com a opção selecionada no cadastro de parceiro de negócio, conforme especificado no procedimento:
+
+1- No campo [U_TX_IndNat] do cadastro de parceiro de negócio informe as opções: 01, 02 ou 03.
+
+Os valores serão transportados para os registros N620-IRPJ, códigos 14, 15, 16 de acordo com a opção selecionada no cadastro de parceiro de negócio.
+
+Fontes consultadas:
+----------------------------------------
+- TaxPlus | SPED ECF | Registro N660 | Automaticamente | Códigos 14, 15, 16 (ID: 484944, Score: 0.005)
+----------------------------------------
+
+
+Language: es
+--------------------------------------------------------------------------------
+
+Query: ¿Cómo automatizar el llenado de los códigos?
+Ground Truth: Para automatizar es necesario informar las opciones 01, 02 o 03 en el campo U_TX_IndNat.
+Response: Não encontrei documentos suficientemente relevantes para sua pergunta. Por favor, reformule a pergunta ou busque por outro tópico.
+----------------------------------------
+
+Query: ¿Cuál es el procedimiento para calcular IRRF?
+Ground Truth: En el documento de salida calcule IRRF y CSLL usando tipos nativos de SAP.
+Response: Não encontrei documentos suficientemente relevantes para sua pergunta. Por favor, reformule a pergunta ou busque por outro tópico.
+----------------------------------------
+
+Query: ¿Cómo configurar el campo U_TX_IndNat?
+Ground Truth: En el campo U_TX_IndNat del registro de socio comercial, informe las opciones: 01, 02 o 03.
+Response: Não encontrei documentos suficientemente relevantes para sua pergunta. Por favor, reformule a pergunta ou busque por outro tópico.
+----------------------------------------
+
+Query: ¿Cuáles son los requisitos para la carga automática?
+Ground Truth: Es necesario cumplir dos requisitos: configurar U_TX_IndNat y usar tipos nativos de SAP para IRRF y CSLL.
+Response: Não encontrei documentos suficientemente relevantes para sua pergunta. Por favor, reformule a pergunta ou busque por outro tópico.
+----------------------------------------
+
+Query: ¿Cómo se transportan los valores al registro N620-IRPJ?
+Ground Truth: Los valores se transportan a los registros N620-IRPJ, códigos 14, 15, 16 según la opción en el registro.
+Response: Respuesta:
+ Para que os valores sejam transportados para o registro N621-IRPJ, é necessário atender os seguintes requisitos:
+
+1. No campo [U_TX_IndNat] do cadastro de parceiro de negócio informe as opções: 01, 02 ou 03.
+
+Os valores serão transportados para os registros N620-IRPJ, códigos 14, 15, 16 de acordo com a opção selecionada no cadastro de parceiro de negócio.
+
+Fuentes consultadas:
+----------------------------------------
+- TaxPlus | SPED ECF | Registro N660 | Automaticamente | Códigos 14, 15, 16 (ID: 484944, Score: 0.004)
+----------------------------------------
+
+
+================================================================================
+Model: zephyr
+================================================================================
+
+
+Language: pt
+--------------------------------------------------------------------------------
+
+Query: Como automatizar o preenchimento dos códigos?
+Ground Truth: Para automatizar é necessário informar as opções 01, 02 ou 03 no campo U_TX_IndNat.
+Response: Resposta:
+1- Para automatizar o preenchimento do código 14, 15 e 16, atente ao seguinte requisito: No campo U_TX_IndNat do cadastro de parceiro de negócio informe as opções: 01, 02 ou 03. Os valores serão transportados para os registros N620-IRPJ, códigos 14, 15, 16 de acordo com a opção selecionada no cadastro de parceiro de negócio.
+
+  2- Além disso, é necessário que no documento de saída seja calculado o IRRF e CSLL, utilizando os tipos nativos do SAP. Os valores calculados nestes impostos serão considerados na análise fiscal e transportados para os códigos 14, 15 e 16 de acordo com a opção selecionada no cadastro de parceiro de negócio.
+  3- O detalhamento dos valores nestes códigos serão transportados para o registro Y570.
+
+  4- Não encontrei informações sobre como automatizar o processo de preenchimento em si no contexto fornecido, apenas como configurar para que ocorra automaticamente.
+
+Fontes consultadas:
+----------------------------------------
+- TaxPlus | SPED ECF | Registro N660 | Automaticamente | Códigos 14, 15, 16 (ID: 484944, Score: 0.004)
+----------------------------------------
+
+Query: Qual o procedimento para calcular IRRF?
+Ground Truth: No documento de saída calcule IRRF e CSLL usando tipos nativos do SAP.
+Response: Não encontrei documentos suficientemente relevantes para sua pergunta. Por favor, reformule a pergunta ou busque por outro tópico.
+----------------------------------------
+
+Query: Como configurar o campo U_TX_IndNat?
+Ground Truth: No campo U_TX_IndNat do cadastro de parceiro de negócio informe as opções: 01, 02 ou 03.
+Response: Não encontrei documentos suficientemente relevantes para sua pergunta. Por favor, reformule a pergunta ou busque por outro tópico.
+----------------------------------------
+
+Query: Quais são os requisitos para carregamento automático?
+Ground Truth: É necessário atender dois requisitos: configurar U_TX_IndNat e usar tipos nativos do SAP para IRRF e CSLL.
+Response: Resposta:
+1- No campo [U_TX_IndNat] do cadastro de parceiro de negócio informe as opções: 01, 02 ou 03.
+2- No documento de saída calcule IRRF e CSLL, utilize os tipos nativos do SAP do contrário os valores calculados nestes impostos não serão considerados na análise fiscal.
+
+Fontes consultadas:
+----------------------------------------
+- TaxPlus | SPED ECF | Registro N660 | Automaticamente | Códigos 14, 15, 16 (ID: 484944, Score: 0.004)
+----------------------------------------
+
+Query: Como os valores são transportados para o registro N620-IRPJ?
+Ground Truth: Os valores são transportados para os registros N620-IRPJ, códigos 14, 15, 16 de acordo com a opção no cadastro.
+Response: Resposta:
+ No contexto fornecido, os valores são transportados para o registro N620-IRPJ de acordo com a opção selecionada no cadastro de parceiro de negócio. O transporte dos valores é feito automaticamente pelo sistema SAP em função das seguintes regras:
+
+1. No campo [U_TX_IndNat] do cadastro de parceiro de negócio informe as opções: 01, 02 ou 03.
+2. O cálculo dos impostos IRRF e CSLL é feito no documento de saída e usando os tipos nativos do SAP.
+3. Os valores calculados nos impostos são considerados na análise fiscal e transportados automaticamente para os registros N620-IRPJ, códigos 14, 15, 16 de acordo com a opção selecionada no cadastro de parceiro de negócio.
+4. O detalhamento dos valores nestes códigos serão transportados para o registro Y570.
+
+Fontes consultadas:
+----------------------------------------
+- TaxPlus | SPED ECF | Registro N660 | Automaticamente | Códigos 14, 15, 16 (ID: 484944, Score: 0.005)
+----------------------------------------
+
+
+Language: es
+--------------------------------------------------------------------------------
+
+Query: ¿Cómo automatizar el llenado de los códigos?
+Ground Truth: Para automatizar es necesario informar las opciones 01, 02 o 03 en el campo U_TX_IndNat.
+Response: Não encontrei documentos suficientemente relevantes para sua pergunta. Por favor, reformule a pergunta ou busque por outro tópico.
+----------------------------------------
+
+Query: ¿Cuál es el procedimiento para calcular IRRF?
+Ground Truth: En el documento de salida calcule IRRF y CSLL usando tipos nativos de SAP.
+Response: Não encontrei documentos suficientemente relevantes para sua pergunta. Por favor, reformule a pergunta ou busque por outro tópico.
+----------------------------------------
+
+Query: ¿Cómo configurar el campo U_TX_IndNat?
+Ground Truth: En el campo U_TX_IndNat del registro de socio comercial, informe las opciones: 01, 02 o 03.
+Response: Não encontrei documentos suficientemente relevantes para sua pergunta. Por favor, reformule a pergunta ou busque por outro tópico.
+----------------------------------------
+
+Query: ¿Cuáles son los requisitos para la carga automática?
+Ground Truth: Es necesario cumplir dos requisitos: configurar U_TX_IndNat y usar tipos nativos de SAP para IRRF y CSLL.
+Response: Não encontrei documentos suficientemente relevantes para sua pergunta. Por favor, reformule a pergunta ou busque por outro tópico.
+----------------------------------------
+
+Query: ¿Cómo se transportan los valores al registro N620-IRPJ?
+Ground Truth: Los valores se transportan a los registros N620-IRPJ, códigos 14, 15, 16 según la opción en el registro.
+Response: Respuesta:
+ Os valores são transportados para o registro N620-IRPJ de acordo com a opção selecionada no cadastro de parceiro de negócio.
+
+Fuentes consultadas:
+----------------------------------------
+- TaxPlus | SPED ECF | Registro N660 | Automaticamente | Códigos 14, 15, 16 (ID: 484944, Score: 0.004)
+----------------------------------------
+
+
+================================================================================
+Model: starling-lm
+================================================================================
+
+
+Language: pt
+--------------------------------------------------------------------------------
+
+Query: Como automatizar o preenchimento dos códigos?
+Ground Truth: Para automatizar é necessário informar as opções 01, 02 ou 03 no campo U_TX_IndNat.
+Response: Resposta:
+ Para automatizar o preenchimento dos códigos 14, 15 e 16, é necessário atender ao seguinte procedimento:
+
+1. Informe as opções na opção U_TX_IndNat do cadastro de parceiro de negócio (01, 02 ou 03).
+2. Calcule IRRF e CSLL no documento de saída utilizando os tipos nativos do SAP. Se não for feito isso, os valores calculados nestes impostos não serão considerados na análise fiscal.
+
+Estes valores serão transportados para os registros N620-IRPJ, códigos 14, 15, 16 de acordo com a opção selecionada no cadastro de parceiro de negócio. O detalhamento dos valores nestes códigos serão transportados para o registro Y570.
+
+Se não encontrei informações sobre outras questões na minha resposta, é porque elas não estão explicitamente no contexto fornecido.
+
+Fontes consultadas:
+----------------------------------------
+- TaxPlus | SPED ECF | Registro N660 | Automaticamente | Códigos 14, 15, 16 (ID: 484944, Score: 0.004)
+----------------------------------------
+
+Query: Qual o procedimento para calcular IRRF?
+Ground Truth: No documento de saída calcule IRRF e CSLL usando tipos nativos do SAP.
+Response: Não encontrei documentos suficientemente relevantes para sua pergunta. Por favor, reformule a pergunta ou busque por outro tópico.
+----------------------------------------
+
+Query: Como configurar o campo U_TX_IndNat?
+Ground Truth: No campo U_TX_IndNat do cadastro de parceiro de negócio informe as opções: 01, 02 ou 03.
+Response: Não encontrei documentos suficientemente relevantes para sua pergunta. Por favor, reformule a pergunta ou busque por outro tópico.
+----------------------------------------
+
+Query: Quais são os requisitos para carregamento automático?
+Ground Truth: É necessário atender dois requisitos: configurar U_TX_IndNat e usar tipos nativos do SAP para IRRF e CSLL.
+Response: Resposta:
+1- Informe as opções no campo [U_TX_IndNat] do cadastro de parceiro de negócio: 01, 02 ou 03.
+2- No documento de saída calcule IRRF e CSLL, utilize os tipos nativos do SAP.
+
+Fontes consultadas:
+----------------------------------------
+- TaxPlus | SPED ECF | Registro N660 | Automaticamente | Códigos 14, 15, 16 (ID: 484944, Score: 0.004)
+----------------------------------------
+
+Query: Como os valores são transportados para o registro N620-IRPJ?
+Ground Truth: Os valores são transportados para os registros N620-IRPJ, códigos 14, 15, 16 de acordo com a opção no cadastro.
+Response: Resposta:
+ Os valores são transportados para o registro N620-IRPJ de acordo com as opções selecionadas no cadastro de parceiro de negócio, conforme mencionado no procedimento. Por exemplo, se a opção [U_TX_IndNat] for 01, os valores serão transportados para os códigos 14 e 15; se a opção for 02, os valores serão transportados para o código 16. O detalhamento dos valores nestes códigos será transportado posteriormente para o registro Y570.
+
+Fontes consultadas:
+----------------------------------------
+- TaxPlus | SPED ECF | Registro N660 | Automaticamente | Códigos 14, 15, 16 (ID: 484944, Score: 0.005)
+----------------------------------------
+
+
+Language: es
+--------------------------------------------------------------------------------
+
+Query: ¿Cómo automatizar el llenado de los códigos?
+Ground Truth: Para automatizar es necesario informar las opciones 01, 02 o 03 en el campo U_TX_IndNat.
+Response: Não encontrei documentos suficientemente relevantes para sua pergunta. Por favor, reformule a pergunta ou busque por outro tópico.
+----------------------------------------
+
+Query: ¿Cuál es el procedimiento para calcular IRRF?
+Ground Truth: En el documento de salida calcule IRRF y CSLL usando tipos nativos de SAP.
+Response: Não encontrei documentos suficientemente relevantes para sua pergunta. Por favor, reformule a pergunta ou busque por outro tópico.
+----------------------------------------
+
+Query: ¿Cómo configurar el campo U_TX_IndNat?
+Ground Truth: En el campo U_TX_IndNat del registro de socio comercial, informe las opciones: 01, 02 o 03.
+Response: Não encontrei documentos suficientemente relevantes para sua pergunta. Por favor, reformule a pergunta ou busque por outro tópico.
+----------------------------------------
+
+Query: ¿Cuáles son los requisitos para la carga automática?
+Ground Truth: Es necesario cumplir dos requisitos: configurar U_TX_IndNat y usar tipos nativos de SAP para IRRF y CSLL.
+Response: Não encontrei documentos suficientemente relevantes para sua pergunta. Por favor, reformule a pergunta ou busque por outro tópico.
+----------------------------------------
+
+Query: ¿Cómo se transportan los valores al registro N620-IRPJ?
+Ground Truth: Los valores se transportan a los registros N620-IRPJ, códigos 14, 15, 16 según la opción en el registro.
+Response: Respuesta:
+ Los valores se transportan al registro N620-IRPJ en base a las opciones seleccionadas en el cadastro de parceiro de negócio (U_TX_IndNat). Según el procedimiento proporcionado, si se informa la opción 01, 02 o 03, los valores calculados para IRRF y CSLL se transportarán automáticamente a los códigos 14, 15, 16 en el registro N620-IRPJ.
+
+Fuentes consultadas:
+----------------------------------------
+- TaxPlus | SPED ECF | Registro N660 | Automaticamente | Códigos 14, 15, 16 (ID: 484944, Score: 0.004)
+----------------------------------------
+
+
+================================================================================
+Model: openhermes
+================================================================================
+
+
+Language: pt
+--------------------------------------------------------------------------------
+
+Query: Como automatizar o preenchimento dos códigos?
+Ground Truth: Para automatizar é necessário informar as opções 01, 02 ou 03 no campo U_TX_IndNat.
+Response: Resposta:
+ Para automatizar o preenchimento dos códigos 14, 15, 16, é necessário atender os seguintes requisitos no contexto fornecido:
+
+1- No campo [U_TX_IndNat] do cadastro de parceiro de negócio informe as opções: 01, 02 ou 03.
+
+2- No documento de saída calcule IRRF e CSLL, utilize os tipos nativos do SAP do contrário os valores calculados nestes impostos não serão considerados na análise fiscal.
+
+As informações necessárias para automatizar o preenchimento dos códigos estão presentes no contexto fornecido, portanto, não encontrei informações sobre outras maneiras de automatização neste contexto.
+
+Fontes consultadas:
+----------------------------------------
+- TaxPlus | SPED ECF | Registro N660 | Automaticamente | Códigos 14, 15, 16 (ID: 484944, Score: 0.004)
+----------------------------------------
+
+Query: Qual o procedimento para calcular IRRF?
+Ground Truth: No documento de saída calcule IRRF e CSLL usando tipos nativos do SAP.
+Response: Não encontrei documentos suficientemente relevantes para sua pergunta. Por favor, reformule a pergunta ou busque por outro tópico.
+----------------------------------------
+
+Query: Como configurar o campo U_TX_IndNat?
+Ground Truth: No campo U_TX_IndNat do cadastro de parceiro de negócio informe as opções: 01, 02 ou 03.
+Response: Não encontrei documentos suficientemente relevantes para sua pergunta. Por favor, reformule a pergunta ou busque por outro tópico.
+----------------------------------------
+
+Query: Quais são os requisitos para carregamento automático?
+Ground Truth: É necessário atender dois requisitos: configurar U_TX_IndNat e usar tipos nativos do SAP para IRRF e CSLL.
+Response: Resposta:
+1- No campo [U_TX_IndNat] do cadastro de parceiro de negócio informe as opções: 01, 02 ou 03.
+2- No documento de saída calcule IRRF e CSLL, utilize os tipos nativos do SAP do contrário os valores calculados nestes impostos não serão considerados na análise fiscal.
+
+Fontes consultadas:
+----------------------------------------
+- TaxPlus | SPED ECF | Registro N660 | Automaticamente | Códigos 14, 15, 16 (ID: 484944, Score: 0.004)
+----------------------------------------
+
+Query: Como os valores são transportados para o registro N620-IRPJ?
+Ground Truth: Os valores são transportados para os registros N620-IRPJ, códigos 14, 15, 16 de acordo com a opção no cadastro.
+Response: Resposta:
+ Os valores são transportados para o registro N620-IRPJ de acordo com a opção selecionada no cadastro de parceiro de negócio, conforme o processo descrito no procedimento fornecido. O detalhamento dos valores nos códigos 14, 15, 16 será transportado para o registro Y570.
+
+Fontes consultadas:
+----------------------------------------
+- TaxPlus | SPED ECF | Registro N660 | Automaticamente | Códigos 14, 15, 16 (ID: 484944, Score: 0.005)
+----------------------------------------
+
+
+Language: es
+--------------------------------------------------------------------------------
+
+Query: ¿Cómo automatizar el llenado de los códigos?
+Ground Truth: Para automatizar es necesario informar las opciones 01, 02 o 03 en el campo U_TX_IndNat.
+Response: Não encontrei documentos suficientemente relevantes para sua pergunta. Por favor, reformule a pergunta ou busque por outro tópico.
+----------------------------------------
+
+Query: ¿Cuál es el procedimiento para calcular IRRF?
+Ground Truth: En el documento de salida calcule IRRF y CSLL usando tipos nativos de SAP.
+Response: Não encontrei documentos suficientemente relevantes para sua pergunta. Por favor, reformule a pergunta ou busque por outro tópico.
+----------------------------------------
+
+Query: ¿Cómo configurar el campo U_TX_IndNat?
+Ground Truth: En el campo U_TX_IndNat del registro de socio comercial, informe las opciones: 01, 02 o 03.
+Response: Não encontrei documentos suficientemente relevantes para sua pergunta. Por favor, reformule a pergunta ou busque por outro tópico.
+----------------------------------------
+
+Query: ¿Cuáles son los requisitos para la carga automática?
+Ground Truth: Es necesario cumplir dos requisitos: configurar U_TX_IndNat y usar tipos nativos de SAP para IRRF y CSLL.
+Response: Não encontrei documentos suficientemente relevantes para sua pergunta. Por favor, reformule a pergunta ou busque por outro tópico.
+----------------------------------------
+
+Query: ¿Cómo se transportan los valores al registro N620-IRPJ?
+Ground Truth: Los valores se transportan a los registros N620-IRPJ, códigos 14, 15, 16 según la opción en el registro.
+Response: Respuesta:
+ A partir do contexto fornecido, os valores são transportados para o registro N620-IRPJ de acordo com a opção selecionada no cadastro de parceiro de negócio. Estes valores serão transportados para os códigos 14, 15, 16.
+
+Fuentes consultadas:
+----------------------------------------
+- TaxPlus | SPED ECF | Registro N660 | Automaticamente | Códigos 14, 15, 16 (ID: 484944, Score: 0.004)
+----------------------------------------
+

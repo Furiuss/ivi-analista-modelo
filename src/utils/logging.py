@@ -6,6 +6,7 @@ from typing import Callable, Any
 
 def setup_logger(name: str, level: int | str = logging.INFO) -> logging.Logger:
     logger = logging.getLogger(name)
+    logger.disabled = True
     logger.setLevel(level)
 
     if not logger.handlers:
