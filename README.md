@@ -114,13 +114,13 @@ projeto/
 2. **Realizando Consultas**
    ```bash
    # Consulta básica
-   python src/scripts/query.py "Sua pergunta aqui"
+   python src/scripts/query_processor.py "Sua pergunta aqui"
 
    # Consulta com idioma específico
-   python src/scripts/query.py "Sua pergunta aqui" --language pt
+   python src/scripts/query_processor.py "Sua pergunta aqui" --language pt
 
    # Consulta com threshold de similaridade
-   python src/scripts/query.py "Sua pergunta aqui" --similarity_threshold 0.7
+   python src/scripts/query_processor.py "Sua pergunta aqui" --similarity_threshold 0.7
    ```
 
 ## Formato dos Dados

@@ -1,5 +1,7 @@
 from typing import List, Dict, Any, Optional, Tuple
-from src.core.interfaces import VectorStore, Document, EmbeddingProvider
+from src.core.interfaces import Document
+from src.domain.vector_store.vector_store_interface import  VectorStore
+from src.domain.embedding.embedding_interface import EmbeddingProvider
 from abc import abstractmethod
 import logging
 

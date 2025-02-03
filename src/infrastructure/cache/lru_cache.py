@@ -1,4 +1,4 @@
-from src.cache.base import BaseCache
+from src.domain.cache.cache_interface import BaseCache
 from typing import Optional, Any
 from datetime import datetime, timedelta
 from collections import OrderedDict
@@ -22,6 +22,7 @@ class LRUCache(BaseCache[Any]):
         self.capacity = capacity
         self.cache = OrderedDict()
         self.ttls = {}
+        self._expiry = {}
 
     async def get(self, key: str) -> Optional[Any]:
         if key not in self.cache:
@@ -41,7 +42,6 @@ class LRUCache(BaseCache[Any]):
             self.cache.move_to_end(key)
         self.cache[key] = value
 
-        # Atualiza TTL
         if ttl:
             self.ttls[key] = time.time() + ttl
             self._expiry[key] = datetime.now() + timedelta(seconds=ttl)
@@ -57,7 +57,6 @@ class LRUCache(BaseCache[Any]):
         self._expiry.pop(key, None)
 
     async def clear(self) -> None:
-        """Limpa o cache e todos os metadados associados."""
         await super().clear()
         self.cache.clear()
         self.ttls.clear()

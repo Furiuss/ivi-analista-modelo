@@ -1,5 +1,5 @@
-from typing import Optional, Dict, Any
-from src.llm.base import BaseLLMProvider
+from typing import Optional
+from src.infrastructure.llm.shared.llm_base import BaseLLMProvider
 from langchain_community.llms.ollama import Ollama
 import logging
 import asyncio

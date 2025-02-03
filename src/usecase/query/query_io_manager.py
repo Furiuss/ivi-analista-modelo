@@ -6,7 +6,7 @@ import logging
 import warnings
 
 
-from src.scripts.query import QueryProcessor
+from src.usecase.query.query_processor import QueryProcessor
 
 
 class RAGCLIOutputManager:

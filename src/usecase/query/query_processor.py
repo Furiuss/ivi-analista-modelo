@@ -3,7 +3,6 @@ Sistema de Consulta RAG Interativo com cache e detecção de idioma
 """
 
 import sys
-import json
 import asyncio
 import argparse
 from dataclasses import dataclass
@@ -13,10 +12,10 @@ import langdetect
 from langdetect import LangDetectException
 
 from src.core.config import AppConfig
-from src.embeddings.ollama import OllamaEmbeddingProvider
-from src.vectorstores.chroma_store import ChromaVectorStore
-from src.llm.ollama_llm import OllamaLLMProvider
-from src.cache.lru_cache import LRUCache
+from src.infrastructure.embeddings.ollama.ollama_embedding import OllamaEmbeddingProvider
+from src.infrastructure.vector_stores.chroma.chroma_vector_store import ChromaVectorStore
+from src.infrastructure.llm.ollama.ollama_llm import OllamaLLMProvider
+from src.infrastructure.cache.lru_cache import LRUCache
 from src.utils.logging import setup_logger
 from src.utils.prompt_templates import PromptTemplates, RoleEnum
 

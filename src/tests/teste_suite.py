@@ -9,7 +9,7 @@ import pandas as pd
 import json
 import logging
 
-from src.scripts.query import QueryProcessor
+from src.usecase.query.query_processor import QueryProcessor
 
 
 @dataclass

@@ -1,4 +1,4 @@
-from src.embeddings.base import BaseEmbeddingProvider
+from src.infrastructure.embeddings.shared.base_embedding import BaseEmbeddingProvider
 from langchain_community.embeddings.ollama import OllamaEmbeddings
 from typing import List
 

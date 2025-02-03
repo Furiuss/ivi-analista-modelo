@@ -2,8 +2,8 @@ import asyncio
 import argparse
 from pathlib import Path
 from src.core.config import AppConfig, PROJECT_ROOT
-from src.embeddings.ollama import OllamaEmbeddingProvider
-from src.vectorstores.chroma_store import ChromaVectorStore
+from src.infrastructure.embeddings.ollama.ollama_embedding import OllamaEmbeddingProvider
+from src.infrastructure.vector_stores.chroma.chroma_vector_store import ChromaVectorStore
 from src.document_processing.loader import JSONDocumentLoader
 from src.document_processing.splitter import RecursiveTextSplitter
 from src.utils.logging import setup_logger
@@ -49,7 +49,7 @@ async def train(config_path: str, data_path: str, reset: bool = False):
         )
 
         # Processar cada arquivo no diretório
-        data_dir = Path(data_path)
+        # data_dir = Path(data_path)
         for file_path in data_dir.glob("*.json"):
             logger.info(f"Processing {file_path}")
 

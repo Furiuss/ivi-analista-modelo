@@ -1,6 +1,6 @@
 from abc import abstractmethod
 from typing import List, Optional
-from src.core.interfaces import EmbeddingProvider
+from src.domain.embedding.embedding_interface import EmbeddingProvider
 from functools import lru_cache
 
 
